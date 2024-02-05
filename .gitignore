@@ -1,0 +1,11 @@
+**__pycache__**
+*.pyc
+**.cache**
+cache/
+temp/
+**/.ipynb_checkpoints/**
+log/
+
+scenarios/*
+~scenarios/test
+
