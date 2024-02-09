@@ -136,6 +136,7 @@
                 "Payload": {
                   "notebook_path": "notebooks/2_model/B10_network_preparation.ipynb",
                   "scenario_path_S3": "am/",
+                  "output_path_S3.$": "$.scenario_path_S3",
                   "launcher_arg": {
                     "training_folder": "/tmp",
                     "params": {
@@ -178,6 +179,7 @@
                 "Payload": {
                   "notebook_path": "notebooks/2_model/C10_pathfinder.ipynb",
                   "scenario_path_S3": "am/",
+                  "output_path_S3.$": "$.output_path_S3",
                   "launcher_arg": {
                     "training_folder": "/tmp",
                     "params": {
@@ -313,7 +315,7 @@
       "Parameters": {
         "Payload": {
           "notebook_path": "notebooks/2_model/D10_demand_model.ipynb",
-          "scenario_path_S3": "orchestrator/",
+          "scenario_path_S3.$": "$[0].output_path_S3",
           "launcher_arg": {
             "training_folder": "/tmp",
             "params": {
