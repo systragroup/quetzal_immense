@@ -8,4 +8,6 @@ quetzal/.venv
 quetzal/wheels-cp38-win_amd64
 quetzal/docker/infra
 quetzal_immense/scenarios/*
+quetzal_immense/notebooks/0_example/*
+quetzal_immense/notebook/1_preparation/*
 quetzal_immense/.git/objects
