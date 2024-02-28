@@ -6,6 +6,7 @@ temp/
 **/.ipynb_checkpoints/**
 log/
 scenarios/*
-inputs/**
+
+inputs/base/*
 
 
