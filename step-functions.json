@@ -90,7 +90,7 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Demand"
+      "End": true
     },
     "Demand": {
       "Type": "Task",
