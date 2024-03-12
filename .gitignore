@@ -8,5 +8,7 @@ log/
 scenarios/*
 
 inputs/base/*
-
-
+inputs/am/*
+inputs/ip/*
+inputs/op/*
+inputs/pm/*

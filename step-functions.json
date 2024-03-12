@@ -90,7 +90,7 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "Demand"
+      "End": true
     },
     "Demand": {
       "Type": "Task",
@@ -309,6 +309,184 @@
               "End": true
             }
           }
+        },
+        {
+          "StartAt": "Network Preparation (ip)",
+          "States": {
+            "Network Preparation (ip)": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload": {
+                  "notebook_path": "notebooks/2_model/B10_network_preparation.ipynb",
+                  "scenario_path_S3": "ip/",
+                  "launcher_arg": {
+                    "training_folder": "/tmp",
+                    "params": {
+                      "general": {
+                        "period": "ip"
+                      }
+                    }
+                  },
+                  "metadata.$": "$.metadata"
+                },
+                "FunctionName": "arn:aws:lambda:ca-central-1:142023388927:function:quetzal-immense:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.SdkClientException",
+                    "Lambda.TooManyRequestsException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                },
+                {
+                  "ErrorEquals": [
+                    "Lambda.AWSLambdaException"
+                  ],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 4,
+                  "BackoffRate": 2
+                }
+              ],
+              "Next": "Pathfinder (ip)"
+            },
+            "Pathfinder (ip)": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload": {
+                  "notebook_path": "notebooks/2_model/C10_pathfinder.ipynb",
+                  "scenario_path_S3": "ip/",
+                  "launcher_arg": {
+                    "training_folder": "/tmp",
+                    "params": {
+                      "general": {
+                        "period": "ip"
+                      }
+                    }
+                  },
+                  "metadata.$": "$.metadata"
+                },
+                "FunctionName": "arn:aws:lambda:ca-central-1:142023388927:function:quetzal-immense:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.SdkClientException",
+                    "Lambda.TooManyRequestsException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                },
+                {
+                  "ErrorEquals": [
+                    "Lambda.AWSLambdaException"
+                  ],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 4,
+                  "BackoffRate": 2
+                }
+              ],
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Network Preparation (op)",
+          "States": {
+            "Network Preparation (op)": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload": {
+                  "notebook_path": "notebooks/2_model/B10_network_preparation.ipynb",
+                  "scenario_path_S3": "op/",
+                  "launcher_arg": {
+                    "training_folder": "/tmp",
+                    "params": {
+                      "general": {
+                        "period": "op"
+                      }
+                    }
+                  },
+                  "metadata.$": "$.metadata"
+                },
+                "FunctionName": "arn:aws:lambda:ca-central-1:142023388927:function:quetzal-immense:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.SdkClientException",
+                    "Lambda.TooManyRequestsException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                },
+                {
+                  "ErrorEquals": [
+                    "Lambda.AWSLambdaException"
+                  ],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 4,
+                  "BackoffRate": 2
+                }
+              ],
+              "Next": "Pathfinder (op)"
+            },
+            "Pathfinder (op)": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::lambda:invoke",
+              "OutputPath": "$.Payload",
+              "Parameters": {
+                "Payload": {
+                  "notebook_path": "notebooks/2_model/C10_pathfinder.ipynb",
+                  "scenario_path_S3": "op/",
+                  "launcher_arg": {
+                    "training_folder": "/tmp",
+                    "params": {
+                      "general": {
+                        "period": "op"
+                      }
+                    }
+                  },
+                  "metadata.$": "$.metadata"
+                },
+                "FunctionName": "arn:aws:lambda:ca-central-1:142023388927:function:quetzal-immense:$LATEST"
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "Lambda.ServiceException",
+                    "Lambda.SdkClientException",
+                    "Lambda.TooManyRequestsException"
+                  ],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                },
+                {
+                  "ErrorEquals": [
+                    "Lambda.AWSLambdaException"
+                  ],
+                  "IntervalSeconds": 30,
+                  "MaxAttempts": 4,
+                  "BackoffRate": 2
+                }
+              ],
+              "End": true
+            }
+          }
         }
       ],
       "Next": "Demand (all)"
@@ -327,7 +505,9 @@
               "general": {
                 "periods": [
                   "am",
-                  "pm"
+                  "pm",
+                  "ip",
+                  "op"
                 ]
               }
             }
